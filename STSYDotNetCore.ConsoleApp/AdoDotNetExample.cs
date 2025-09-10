@@ -13,14 +13,8 @@ namespace STSYDotNetCore.ConsoleApp
         private readonly string _connectionString = "Data Source=MSI\\SQLEXPRESS;Initial Catalog=DotNetTraining;User ID=sa;Password=16121998*StSy";
         public void Read()
         {
-            
-            Console.WriteLine("Connection String: " + _connectionString);
             SqlConnection connection = new SqlConnection(_connectionString);
-
-            Console.WriteLine("Connection Opening.....");
-
             connection.Open();
-            Console.WriteLine("Connection Opened!");
 
             string query = @"SELECT [BlogId]
       ,[BlogTitle]
@@ -39,14 +33,17 @@ namespace STSYDotNetCore.ConsoleApp
             // Dr ka a yin ka thone tae pone
             // nout pine ka d lo thone tr ==> dt = adapter.Execute()
 
-            SqlDataReader reader = cmd.ExecuteReader();
-            while (reader.Read())
-            {
-                Console.WriteLine(reader["BlogId"]);
-                Console.WriteLine(reader["BlogTitle"]);
-                Console.WriteLine(reader["BlogAuthor"]);
-                Console.WriteLine(reader["BlogContent"]);
-            }
+            //SqlDataReader reader = cmd.ExecuteReader();
+            //while (reader.Read())
+            //{
+            //    Console.WriteLine(reader["BlogId"]);
+            //    Console.WriteLine(reader["BlogTitle"]);
+            //    Console.WriteLine(reader["BlogAuthor"]);
+            //    Console.WriteLine(reader["BlogContent"]);
+            //}
+
+            
+            connection.Close();
 
             foreach (DataRow dr in dt.Rows)
             {
@@ -55,10 +52,6 @@ namespace STSYDotNetCore.ConsoleApp
                 Console.WriteLine(dr["BlogContent"]);
                 Console.WriteLine(dr["DeleteFlag"]);
             }
-
-            Console.WriteLine("Connection Closing.......");
-            connection.Close();
-            Console.WriteLine("Connection Closed!");
 
             // DataSet --> in-memory collection of more than 1 data table, can do RU while disconnected from dbs(Disconnected data asset)
             // DataSet --> DataTables --> DataRows, DataColumns
@@ -117,9 +110,7 @@ namespace STSYDotNetCore.ConsoleApp
 
             SqlConnection connection = new SqlConnection(_connectionString);
 
-            Console.WriteLine("Connection Opening.....");
             connection.Open();
-            Console.WriteLine("Connection Opened!");
 
             string query = $@"
     INSERT INTO [dbo].[Tbl_Blog]
@@ -170,7 +161,7 @@ namespace STSYDotNetCore.ConsoleApp
   FROM [dbo].[Tbl_Blog] where BlogId = @BlogId";
 
             SqlCommand cmd = new SqlCommand(query, connection);
-            cmd.Parameters.AddWithValue("BlogId", id);
+            cmd.Parameters.AddWithValue("@BlogId", id);
             SqlDataAdapter adapter = new SqlDataAdapter(cmd);
             DataTable dt = new DataTable();
             adapter.Fill(dt);
