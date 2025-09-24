@@ -40,10 +40,15 @@ Console.WriteLine("Hello, World!");
 //adoDotNet2.View();
 //adoDotNet2.Create();
 
-EFCoreExample eFCoreExample = new EFCoreExample();
+//EFCoreExample eFCoreExample = new EFCoreExample();
 //eFCoreExample.Read();
 //eFCoreExample.Create("Title efcore", "Author Efcore", "Content Efcore");
 //eFCoreExample.Delete(4);
 //eFCoreExample.Edit(1);
 //eFCoreExample.Update(1, "ef title", "ef Author", "ef Content");
+
+
+//custom service for Dapper Testing
+DapperExample2 dapperExample2 = new DapperExample2();
+//dapperExample2.Read();
 Console.ReadKey();
